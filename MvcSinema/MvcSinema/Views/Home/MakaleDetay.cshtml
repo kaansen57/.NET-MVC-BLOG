@@ -1,0 +1,208 @@
+﻿@model MvcSinema.Models.Makale
+
+@{
+    ViewBag.Title = "MakaleDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .tag {
+        background-color: #808080;
+    }
+</style>
+<div class="col-md-8">
+    <!-- başlık -->
+    <h1 class="mt-4">@Model.Baslik</h1>
+    <!--yazar -->
+    <p class="lead">
+
+        <img class="img-fluid rounded-circle" width="60" src="@Model.Uye.Foto" alt="@Model.Uye.AdSoyad" /> <a href="/Uye/Index/@Model.UyeId" style="color:#8f1c1c;"> @Model.Uye.AdSoyad  </a>
+    </p>
+    <hr>
+    <!-- Tarih -->
+
+    <p>
+        <i class="fa fa-calendar"></i>  &nbsp; @String.Format("{0: MMMM yyyy}", Model.Tarih) | <i class="fa fa-edit"> @Model.Kategori.KategoriAdi (@Model.Kategori.Makales.Count)</i>
+        | <i class="fa fa-comments"> Yorumlar (@Model.Yorums.Count)</i> | <i class="fa fa-eye"> Okunma (@Model.Okunma.Value)</i>
+
+    </p>
+    <hr>
+    <!-- resim-->
+    <img class="img-fluid rounded" src="@Model.Foto" alt="@Model.Baslik">
+    <hr>
+    <!-- İçerik -->
+    <p class="lead">
+        @Html.Raw(Model.Icerik)
+    </p>
+
+    <div class="card mb-4" style=" background-color:#b92626; color:#fff;">
+        <h4 style="text-align:center"> Etiketler </h4>
+        <hr style="background-color:#fff;" />
+        <div class="card card-body bg-light">
+
+            @foreach (var item in Model.Etikets)
+            {
+                <i class="fa fa-tags" style="float:left; color:#706969;">  @item.EtiketAdi </i>
+            }
+
+        </div>
+
+
+
+    </div>
+
+
+    @if (Session["uyeid"] != null)
+    {
+    <!-- Yorum yap-->
+        <div class="card my-4">
+            <h5 class="card-header">Yorum Yap</h5>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <textarea id="yorum" typeof="text" class="form-control" rows="3"></textarea>
+                    </div>
+                    <button type="submit" id="gonder" class="btn btn-primary bg-dark">Gönder</button>
+                </form>
+            </div>
+        </div>
+    <!-- Yorum yap-->
+        <hr>
+    }
+    
+    
+
+
+    <!-- yorumlar -->
+    @foreach (var item in Model.Yorums.ToList())
+    {
+        <div class="card card-header" style="margin-top:10px; margin-bottom:10px;">
+            <div class=" media mb-4">
+            <img class="d-flex mr-3 rounded-circle" width="100" src="@item.Uye.Foto" alt="@item.Uye.AdSoyad">
+            <div class="media-body">
+                <h5 class="mt-0">
+                    @item.Uye.KullaniciAdi
+                    <small> @item.Tarih </small>
+                </h5>
+                @item.Yorum1 - @if (Convert.ToInt32(Session["uyeid"]) == item.UyeId)
+                {
+                    <a href="/Home/YorumSil/@item.YorumId" class="btn btn-danger"> Yorumu Sil </a>
+                }
+            </div>
+        </div>
+        </div>
+    }
+    @if(Session["uyeid"]==null)
+    {
+    <h3>Makaleye yorum yapmak için kullanıcı girişi yapmalısınız!</h3>
+    <h5 style="color:#000; text-align:center;"><a href="/Uye/Create/" style="color:#941616;">Kayıt Ol</a> |  <a href="/Uye/Login/" style="color:#941616;">Giriş Yap</a></h5>
+    }
+
+</div> <!-- container div kapanış-->
+
+
+<script src="~/Content/vendor/jquery/jquery.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){ //döküman hazır olunca
+        $("#gonder").click(function () { // idsi gönder olan click olunca functionu çalıştır
+            var yorumunuz = $("#yorum").val(); // textaredan gelen yorum idsinin valuesi
+            $.ajax({ //gönder
+                url: '/Home/YorumYap/',//home yorum yap json actiona git
+                data: {yorum:yorumunuz, Makaleid:@Model.MakaleId} , // makale idden gelecek yorumlar
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    alert("Yorum Yapma Başarılı Yorumunuz : "+ yorumunuz);}
+                         
+            });
+        });
+    })
+
+
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.ajax({
+            url: '/Home/OkunmaArttir/',
+            data:{Makaleid: @Model.MakaleId},
+            type: 'POST',
+        });
+    })
+</script>
+
+
+
+@*<h2>Makale Detay</h2>
+        <div>
+        <h4>Makale</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Kategori.KategoriAdi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Kategori.KategoriAdi)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Uye.KullaniciAdi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Uye.KullaniciAdi)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Baslik)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Baslik)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Icerik)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Icerik)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Foto)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Foto)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Tarih)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Tarih)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Okunma)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Okunma)
+            </dd>
+
+        </dl>
+    </div>*@
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MakaleId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

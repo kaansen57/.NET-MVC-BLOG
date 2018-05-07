@@ -1,0 +1,11 @@
+C:\Users\Kaan\Documents\Visual Studio 2013\Projects\MvcSinema\MvcSinema\bin\MvcSinema.dll.config
+C:\Users\Kaan\Documents\Visual Studio 2013\Projects\MvcSinema\MvcSinema\bin\MvcSinema.dll
+C:\Users\Kaan\Documents\Visual Studio 2013\Projects\MvcSinema\MvcSinema\bin\MvcSinema.pdb
+C:\Users\Kaan\Documents\Visual Studio 2013\Projects\MvcSinema\MvcSinema\obj\Debug\MvcSinema.dll
+C:\Users\Kaan\Documents\Visual Studio 2013\Projects\MvcSinema\MvcSinema\obj\Debug\MvcSinema.pdb
+E:\MVC Çalışmalarım\MvcSinema\MvcSinema\bin\MvcSinema.dll.config
+E:\MVC Çalışmalarım\MvcSinema\MvcSinema\bin\MvcSinema.dll
+E:\MVC Çalışmalarım\MvcSinema\MvcSinema\bin\MvcSinema.pdb
+E:\MVC Çalışmalarım\MvcSinema\MvcSinema\obj\Debug\MvcSinema.dll
+E:\MVC Çalışmalarım\MvcSinema\MvcSinema\obj\Debug\MvcSinema.pdb
+C:\Users\Kaan\Documents\Visual Studio 2013\Projects\MvcSinema\MvcSinema\obj\Debug\MvcSinema.csprojResolveAssemblyReference.cache

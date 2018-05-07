@@ -1,0 +1,14 @@
+﻿@model IEnumerable<MvcSinema.Models.Makale>
+
+@{
+    Layout = null;
+}
+<h5 class="card-header" style="background-color:#a31d1d;color:#FFF;">En Çok Okunanlar</h5>
+<div class="card-body">
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li><a href="/Home/MakaleDetay/@item.MakaleId   ">@item.Baslik </a>(@item.Okunma)</li>
+        }
+    </ul>
+</div>
