@@ -2,12 +2,18 @@
 @{
     Layout = null;
 }
+<style>
+    li {
+        list-style: none;
+    }
+</style>
 <h5 class="card-header" style="background-color:#a31d1d;color:#FFF;">Son Yapılan Yorumlar</h5>
 <div class="card-body">
-     <ul>
-         @foreach (var item in Model)
-         {
-             <li>@item.Yorum1</li>
-         }
-     </ul>
+    <ul class="list-unstyled mb-0">
+        @foreach (var item in Model)
+        {
+            <li> <img src="@item.Uye.Foto" width="30" class="img-fluid rounded-circle" /> <a href="/Home/MakaleDetay/@item.MakaleId"> @item.Yorum1 | @item.Makale.Baslik</a></li>
+        }
+    </ul>
+
 </div>

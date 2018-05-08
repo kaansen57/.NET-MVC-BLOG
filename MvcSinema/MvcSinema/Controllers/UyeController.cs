@@ -130,7 +130,7 @@ namespace MvcSinema.Controllers
                 uyes.Email = uye.Email;
                 db.SaveChanges();
                 Session["kullaniciadi"] = uye.KullaniciAdi;
-                return RedirectToAction("Index", "Home", new { id = uyes.UyeId });
+                return RedirectToAction("Index", "Uye", new { id = uyes.UyeId });
             }
             return View();
         }

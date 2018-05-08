@@ -1,11 +1,28 @@
-﻿
-@model IEnumerable<MvcSinema.Models.Makale>
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<MvcSinema.Models.Makale>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<style>
+    .PagedList li{
+        
+        color:#741212;
+        font-size:40px;
+      
+        margin-left:5px;
+    }
+    .PagedList li a 
+    {
+         color:#741212;
+    }
+     .PagedList li a:hover
+    {
+        color:#808080;
+    }
+</style>
 <div class="col-md-8" style="padding-top:25px;">
  
     
@@ -79,7 +96,7 @@
         <div class="card mb-4">
             <img class="card-img-top" src="@item.Foto" alt="@item.Baslik">
             <div class="card-body">
-                <h2 class="card-title">@item.Baslik</h2>
+                <h4 class="card-title"> <a class="text-dark" style="text-decoration:none;" href="/Home/MakaleDetay/@item.MakaleId">@item.Baslik</a></h4>
                
                     @if(item.Icerik.Length>150)
                     {
@@ -100,12 +117,12 @@
 
                 
                 
-                <a href="/Home/MakaleDetay/@item.MakaleId" class="btn btn-primary">Devamı &rarr;</a>
+                <a href="/Home/MakaleDetay/@item.MakaleId" class="btn btn-primary" style="background-color:#741212; border-color:#741212">Devamı &rarr;</a>
             </div>
             <div class="card-footer text-muted">
                  
                 <img src="@item.Uye.Foto" alt="@item.Uye.KullaniciAdi" class="rounded-circle img-fluid" width="50" />
-                <a  href="/Uye/Index/@item.Uye.UyeId">@item.Uye.KullaniciAdi</a> &nbsp;&nbsp;
+                <a  href="/Uye/Index/@item.Uye.UyeId" style="color:#741212">@item.Uye.KullaniciAdi</a> &nbsp;&nbsp;
                 <i class="fa fa-calendar"></i>  @String.Format("{0: MMMM yyyy}", item.Tarih) | <i class="fa fa-edit"> @item.Kategori.KategoriAdi (@item.Kategori.Makales.Count)</i>
                 | <i class="fa fa-comments"> Yorumlar (@item.Yorums.Count)</i> | <i class="fa fa-eye"> Okunma (@item.Okunma.Value)</i>
                
@@ -118,4 +135,11 @@
     </article>
         
     }
+    <div class="row">
+        <div class="col-md-8 tex">
+            <div class="PagedList">
+                @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }), PagedListRenderOptions.Classic)
+            </div>
+        </div>
+    </div>
 </div>

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcSinema.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace MvcSinema.Controllers
 {
@@ -11,9 +13,9 @@ namespace MvcSinema.Controllers
     {
         mvcsinemaDB db = new mvcsinemaDB();
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(int Page = 1)
         {
-            var makale = db.Makales.OrderByDescending(m => m.MakaleId).ToList();
+            var makale = db.Makales.OrderByDescending(m => m.MakaleId).ToPagedList(Page, 5);
             return View(makale);
            
         }

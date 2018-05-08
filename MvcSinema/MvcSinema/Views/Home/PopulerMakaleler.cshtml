@@ -5,10 +5,13 @@
 }
 <h5 class="card-header" style="background-color:#a31d1d;color:#FFF;">En Çok Okunanlar</h5>
 <div class="card-body">
-    <ul>
+    <ul class="list-unstyled mb-0">
         @foreach (var item in Model)
         {
-            <li><a href="/Home/MakaleDetay/@item.MakaleId   ">@item.Baslik </a>(@item.Okunma)</li>
+            <li>
+                <img src="@item.Foto" class="img-fluid rounded-circle"   width="40" alt="@item.Baslik" />
+        <a href="/Home/MakaleDetay/@item.MakaleId   ">@item.Baslik </a>(@item.Okunma)
+            </li>
         }
-    </ul>
+        </ul>
 </div>

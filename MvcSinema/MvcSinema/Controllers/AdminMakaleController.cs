@@ -62,7 +62,8 @@ namespace MvcSinema.Controllers
                         makale.Etikets.Add(yenietiket);
                     }
                 }
-               
+                makale.UyeId = Convert.ToInt32(Session["uyeid"]);
+                makale.Okunma = 0;
                 db.Makales.Add(makale);
                 db.SaveChanges();
                 return RedirectToAction("Index");

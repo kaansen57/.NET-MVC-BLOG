@@ -28,42 +28,58 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/Home/Index">
+                            <a class="nav-link fa fa-home" href="/Home/Index">
                                 Ana Sayfa
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Home/Hakkimizda/">Hakkımızda</a>
+                        <li class="nav-item active">
+                            <a class="nav-link fa fa-drivers-license-o" href="/Home/Hakkimizda/">Hakkımızda</a>
                         </li>
                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Home/Iletisim/">İletişim</a>
+                        <li class="nav-item active">
+                            <a class="nav-link fa fa-address-card-o" href="/Home/Iletisim/">İletişim</a>
                         </li>
-                        @if (Session["uyeid"] != null)
-                        {
+                        
+                       
                             
-                            <li class="nav-item">
-                                
-                                <a class="nav-link" href="/Uye/Index/@Session["uyeid"]">@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@Session["kullaniciadi"].ToString())</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/Uye/Logout/">Çıkış Yap</a>
-                            </li>
-                            if (Convert.ToInt32(Session["yetkiid"]) == 1)
+                           
+                       
+                            @if (Session["uyeid"] != null)
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/Admin/Index/" target="_blank">Admin Paneli</a>
+                                <div class="dropdown active"> @*Dropdown Açılışı*@
+                                   
+                                    <button type="button" class="btn dropdown-toggle fa fa-list " data-toggle="dropdown" style="background-color:#a31d1d; color:#fff;">
+                                        Kullanıcı Paneli
+                                    </button>
+
+                                    <li class=" dropdown-menu active" style="background-color:#9b9191">
+
+                                        <a class="dropdown-item fa fa-user-circle-o " href="/Uye/Index/@Session["uyeid"]">@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@Session["kullaniciadi"].ToString())</a>
+
+
+                                        <a class="dropdown-item fa fa-sign-out" href="/Uye/Logout/">Çıkış Yap</a>
+
+
+                                    </li>
+                            </div> @*Dropdown kapanışı*@
+
+
+
+                                if (Convert.ToInt32(Session["yetkiid"]) == 1)
+                                {
+                                    <li class="nav-item active">
+                                        <a class="nav-link fa fa-user-plus" href="/Admin/Index/" target="_blank">Admin Paneli</a>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li class="nav-item active">
+                                    <a class="nav-link fa fa-sign-in" href="/Uye/Login/">Giriş Yap</a>
                                 </li>
                             }
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" href="/Uye/Login/">Giriş Yap</a>
-                            </li>
-                        }
-
+                        
                     </ul>
                 </div>
             </div>
@@ -90,9 +106,7 @@
                     @{
                         Html.RenderAction("KategoriPartial", "Home");
                     }
-                    @{
-                        Html.RenderAction("PopulerMakaleler", "Home");
-                    }
+                   
                 </div>
                 <!-- Side Widget -->
                 <div class="card my-4">

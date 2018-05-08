@@ -3,20 +3,30 @@
 @{
     Layout = null;
 }
+<style>
+    li a{
+        color:#000;
+        
+    }
+    li a:hover{
+        color:#000;
+        
+    }
+</style>
 <h5 class="card-header" style=" background-color:#a31d1d;color:#fff;">Kategoriler</h5>
 <div class="card-body">
-    <div class="row">
-        <div class="col-lg-6">
+   
+       
             @foreach (var item in Model)
             {
                 <ul class="list-unstyled mb-0">
                     <li>
-                        <a href="/Home/KategoriMakale/@item.KategoriId">@item.KategoriAdi</a>
+                        <a href="/Home/KategoriMakale/@item.KategoriId">@item.KategoriAdi (@item.Makales.Count)</a>
                     </li>
 
                 </ul>
             }
 
-        </div>
-    </div>
+     
+    
 </div>
